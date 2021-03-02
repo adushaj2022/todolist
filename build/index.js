@@ -37,6 +37,7 @@ const express_1 = __importDefault(require("express"));
 const typeorm_1 = require("typeorm");
 const Student_1 = require("./Entities/Student");
 const student_route_1 = __importDefault(require("./routes/student.route"));
+const housing_route_1 = __importDefault(require("./routes/housing.route"));
 const cors_1 = __importDefault(require("cors"));
 const Housing_1 = require("./Entities/Housing");
 dotenv.config({
@@ -45,6 +46,7 @@ dotenv.config({
 });
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = express_1.default();
+    //middlewares
     app.use(express_1.default.json());
     app.use(cors_1.default());
     const port = process.env.PORT || 5000;
@@ -62,8 +64,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     if (connection.isConnected) {
         console.log("Connected to Postgres");
     }
+    //routes
     app.use("/", student_route_1.default);
-    app.listen(4000, () => {
+    app.use("/", housing_route_1.default);
+    app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
 });

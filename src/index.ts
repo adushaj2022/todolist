@@ -4,6 +4,7 @@ import express from "express";
 import { createConnection } from "typeorm";
 import { Student } from "./Entities/Student";
 import studentRouter from "./routes/student.route";
+import housingRouter from "./routes/housing.route";
 import cors from "cors";
 import { Housing } from "./Entities/Housing";
 dotenv.config({
@@ -13,6 +14,8 @@ dotenv.config({
 
 const main = async (): Promise<void> => {
   const app = express();
+
+  //middlewares
   app.use(express.json());
   app.use(cors());
 
@@ -33,9 +36,11 @@ const main = async (): Promise<void> => {
     console.log("Connected to Postgres");
   }
 
+  //routes
   app.use("/", studentRouter);
+  app.use("/", housingRouter);
 
-  app.listen(4000, (): void => {
+  app.listen(port, (): void => {
     console.log(`Server is running on port ${port}`);
   });
 };
