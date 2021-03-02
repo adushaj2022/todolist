@@ -17,6 +17,7 @@ const typeorm_1 = require("typeorm");
 const Student_1 = require("./Entities/Student");
 const student_route_1 = __importDefault(require("./routes/student.route"));
 const cors_1 = __importDefault(require("cors"));
+const Housing_1 = require("./Entities/Housing");
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = express_1.default();
     app.use(express_1.default.json());
@@ -31,7 +32,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         host: "127.0.0.1",
         synchronize: true,
         port: 5432,
-        entities: [Student_1.Student],
+        entities: [Student_1.Student, Housing_1.Housing],
     });
     if (connection.isConnected) {
         console.log("Connected to Postgres");

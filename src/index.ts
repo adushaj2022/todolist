@@ -3,6 +3,7 @@ import { createConnection } from "typeorm";
 import { Student } from "./Entities/Student";
 import studentRouter from "./routes/student.route";
 import cors from "cors";
+import { Housing } from "./Entities/Housing";
 const main = async (): Promise<void> => {
   const app = express();
   app.use(express.json());
@@ -18,7 +19,7 @@ const main = async (): Promise<void> => {
     host: "127.0.0.1",
     synchronize: true,
     port: 5432,
-    entities: [Student],
+    entities: [Student, Housing],
   });
 
   if (connection.isConnected) {

@@ -9,32 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Student = void 0;
+exports.Housing = void 0;
 const typeorm_1 = require("typeorm");
-const Housing_1 = require("./Housing");
-let Student = class Student extends typeorm_1.BaseEntity {
+const Student_1 = require("./Student");
+let Housing = class Housing extends typeorm_1.BaseEntity {
 };
 __decorate([
     typeorm_1.PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Student.prototype, "id", void 0);
+], Housing.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
-], Student.prototype, "firstName", void 0);
+], Housing.prototype, "name", void 0);
 __decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], Student.prototype, "lastName", void 0);
-__decorate([
-    typeorm_1.Column(),
-    __metadata("design:type", String)
-], Student.prototype, "major", void 0);
-__decorate([
-    typeorm_1.ManyToOne(() => Housing_1.Housing, (housing) => housing.student),
-    __metadata("design:type", Housing_1.Housing)
-], Student.prototype, "housing", void 0);
-Student = __decorate([
+    typeorm_1.OneToMany(() => Student_1.Student, (student) => student.housing),
+    __metadata("design:type", Array)
+], Housing.prototype, "student", void 0);
+Housing = __decorate([
     typeorm_1.Entity()
-], Student);
-exports.Student = Student;
+], Housing);
+exports.Housing = Housing;
