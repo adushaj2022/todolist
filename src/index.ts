@@ -1,9 +1,12 @@
 import express, { Request, Response } from "express";
 import { createConnection } from "typeorm";
 import { Student } from "./Entities/Student";
-
+import studentRouter from "./routes/student.route";
+import cors from "cors";
 const main = async (): Promise<void> => {
   const app = express();
+  app.use(express.json());
+  app.use(cors());
   const port = process.env.PORT || 4000;
 
   const connection = await createConnection({
@@ -22,9 +25,7 @@ const main = async (): Promise<void> => {
     console.log("Connected to Postgres");
   }
 
-  app.get("/", (req: Request, res: Response): void => {
-    res.status(200).send("hi");
-  });
+  app.use("/", studentRouter);
 
   app.listen(4000, (): void => {
     console.log(`Server is running on port ${port}`);

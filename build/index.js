@@ -15,8 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const typeorm_1 = require("typeorm");
 const Student_1 = require("./Entities/Student");
+const student_route_1 = __importDefault(require("./routes/student.route"));
+const cors_1 = __importDefault(require("cors"));
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = express_1.default();
+    app.use(express_1.default.json());
+    app.use(cors_1.default());
     const port = process.env.PORT || 4000;
     const connection = yield typeorm_1.createConnection({
         type: "postgres",
@@ -32,9 +36,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     if (connection.isConnected) {
         console.log("Connected to Postgres");
     }
-    app.get("/", (req, res) => {
-        res.status(200).send("hi");
-    });
+    app.use("/", student_route_1.default);
     app.listen(4000, () => {
         console.log(`Server is running on port ${port}`);
     });
