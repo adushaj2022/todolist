@@ -1,24 +1,31 @@
-import express, { Request, Response } from "express";
+import "reflect-metadata";
+import * as dotenv from "dotenv-safe";
+import express from "express";
 import { createConnection } from "typeorm";
 import { Student } from "./Entities/Student";
 import studentRouter from "./routes/student.route";
 import cors from "cors";
 import { Housing } from "./Entities/Housing";
+dotenv.config({
+  allowEmptyValues: true,
+  example: "./.env",
+});
+
 const main = async (): Promise<void> => {
   const app = express();
   app.use(express.json());
   app.use(cors());
-  const port = process.env.PORT || 4000;
 
+  const port = process.env.PORT || 5000;
   const connection = await createConnection({
     type: "postgres",
-    username: "postgres",
-    password: "4512",
+    username: process.env.USER,
+    password: process.env.PASSWORD,
     database: "School",
     logging: true,
-    host: "127.0.0.1",
+    host: process.env.HOST,
     synchronize: true,
-    port: 5432,
+    port: process.env.DATABASE_PORT,
     entities: [Student, Housing],
   });
 
