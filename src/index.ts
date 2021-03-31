@@ -2,11 +2,9 @@ import "reflect-metadata";
 import * as dotenv from "dotenv-safe";
 import express from "express";
 import { createConnection } from "typeorm";
-import { Student } from "./Entities/Student";
-import studentRouter from "./routes/student.route";
-import housingRouter from "./routes/housing.route";
+import todoRouter from "./routes/todo.routes";
 import cors from "cors";
-import { Housing } from "./Entities/Housing";
+import { ToDo } from "./Entities/ToDo";
 dotenv.config({
   allowEmptyValues: true,
   example: "./.env",
@@ -24,12 +22,12 @@ const main = async (): Promise<void> => {
     type: "postgres",
     username: process.env.USER,
     password: process.env.PASSWORD,
-    database: "School",
+    database: "typedo",
     logging: true,
     host: process.env.HOST,
     synchronize: true,
     port: process.env.DATABASE_PORT,
-    entities: [Student, Housing],
+    entities: [ToDo],
   });
 
   if (connection.isConnected) {
@@ -37,8 +35,7 @@ const main = async (): Promise<void> => {
   }
 
   //routes
-  app.use("/", studentRouter);
-  app.use("/", housingRouter);
+  app.use("/", todoRouter);
 
   app.listen(port, (): void => {
     console.log(`Server is running on port ${port}`);

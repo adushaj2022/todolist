@@ -35,11 +35,9 @@ require("reflect-metadata");
 const dotenv = __importStar(require("dotenv-safe"));
 const express_1 = __importDefault(require("express"));
 const typeorm_1 = require("typeorm");
-const Student_1 = require("./Entities/Student");
-const student_route_1 = __importDefault(require("./routes/student.route"));
-const housing_route_1 = __importDefault(require("./routes/housing.route"));
+const todo_routes_1 = __importDefault(require("./routes/todo.routes"));
 const cors_1 = __importDefault(require("cors"));
-const Housing_1 = require("./Entities/Housing");
+const ToDo_1 = require("./Entities/ToDo");
 dotenv.config({
     allowEmptyValues: true,
     example: "./.env",
@@ -54,19 +52,18 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         type: "postgres",
         username: process.env.USER,
         password: process.env.PASSWORD,
-        database: "School",
+        database: "typedo",
         logging: true,
         host: process.env.HOST,
         synchronize: true,
         port: process.env.DATABASE_PORT,
-        entities: [Student_1.Student, Housing_1.Housing],
+        entities: [ToDo_1.ToDo],
     });
     if (connection.isConnected) {
         console.log("Connected to Postgres");
     }
     //routes
-    app.use("/", student_route_1.default);
-    app.use("/", housing_route_1.default);
+    app.use("/", todo_routes_1.default);
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);
     });
