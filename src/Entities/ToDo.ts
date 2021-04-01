@@ -11,3 +11,9 @@ export class ToDo extends BaseEntity {
   @Column()
   isCompleted!: boolean;
 }
+
+export interface Dtodo {
+  id: number;
+  task: string;
+  isCompleted: boolean;
+}
