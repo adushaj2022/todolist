@@ -4,7 +4,7 @@ Main purpose of this project was to practice with typescript and type orm on the
 
 # Tech Stack
 
-TypeScript (8.0) <br>
+TypeScript <br>
 Node & Express <br>
 Type Orm <br>
 React <br>
