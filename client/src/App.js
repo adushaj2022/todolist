@@ -7,10 +7,13 @@ import Nav from "./components/Nav";
 import Wrapper from "./components/Wrapper";
 import { getTodos } from "./api/todos";
 import Todo from "./components/Todo";
+import { create } from "./api/create";
+import { useToast } from "@chakra-ui/toast";
 
 function App() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([{}]);
+  const toast = useToast();
 
   useEffect(() => {
     async function fetchData() {
@@ -20,8 +23,24 @@ function App() {
     fetchData();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const newTodo = {
+      task: todo,
+      isCompleted: false,
+    };
+    const res = await create(newTodo);
+    if (res) {
+      //toast
+      setTodos([...todos, newTodo]);
+      toast({
+        title: "To do added",
+        description: `${newTodo["task"]} added to the list`,
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   };
   return (
     <div className="App">
@@ -41,7 +60,15 @@ function App() {
                 onChange={(e) => setTodo(e.target.value)}
                 mt={3}
               />
-              <Button colorScheme="teal" size="sm" width="55px" type="submit">
+              <Button
+                colorScheme="teal"
+                size="sm"
+                width="55px"
+                type="submit"
+                height="40px"
+                ml={2}
+                mb={1}
+              >
                 Add
               </Button>
             </form>
@@ -52,7 +79,7 @@ function App() {
             </Heading>
             {todos.length >= 1 &&
               todos.map((t, index) => {
-                return <Todo desc={t.task} key={index} />;
+                return <Todo desc={t.task} key={index} tid={t.id} />;
               })}
           </Stack>
         </Flex>
