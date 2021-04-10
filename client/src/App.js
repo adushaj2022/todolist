@@ -23,6 +23,8 @@ function App() {
     fetchData();
   }, []);
 
+  const handleDelete = async () => {};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newTodo = {
