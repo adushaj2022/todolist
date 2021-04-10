@@ -30,9 +30,9 @@ export const complete = async (req: Request, res: Response): Promise<void> => {
   const id: number = parseInt(req.body?.id);
   const t = await ToDo.findOne({ id });
   if (t) {
-    t.isCompleted = true;
+    t.isCompleted = !t.isCompleted;
     await t.save();
-    res.status(200).json({ message: "To Do changed to completed" });
+    res.status(200).json({ message: `Todo changed to ${t.isCompleted}` });
   } else {
     res.status(404).json({ message: "No To Do found" });
   }

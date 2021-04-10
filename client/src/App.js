@@ -8,7 +8,9 @@ import Wrapper from "./components/Wrapper";
 import { getTodos } from "./api/todos";
 import Todo from "./components/Todo";
 import { create } from "./api/create";
+import { remove } from "./api/remove";
 import { useToast } from "@chakra-ui/toast";
+import { Spinner } from "@chakra-ui/spinner";
 
 function App() {
   const [todo, setTodo] = useState("");
@@ -23,7 +25,31 @@ function App() {
     fetchData();
   }, []);
 
-  const handleDelete = async () => {};
+  const handleUpdate = async (e, id) => {
+    setTodos(
+      todos.map((t) => {
+        if (t.id === id) {
+          return { ...t, isCompleted: e.target.checked };
+        } else {
+          return t;
+        }
+      })
+    );
+  };
+
+  const handleDelete = async (id) => {
+    const res = await remove(id);
+    if (res) {
+      setTodos(todos.filter((t) => t.id !== id));
+      toast({
+        title: "To do removed",
+        description: "Successfully removed from the list",
+        status: "warning",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,10 +105,22 @@ function App() {
             <Heading as="h2" size="sm">
               Todos
             </Heading>
-            {todos.length >= 1 &&
+            {todos?.length >= 1 ? (
               todos.map((t, index) => {
-                return <Todo desc={t.task} key={index} tid={t.id} />;
-              })}
+                return (
+                  <Todo
+                    desc={t.task}
+                    key={index}
+                    tid={t.id}
+                    isC={t.isCompleted}
+                    handleDelete={handleDelete}
+                    handleUpdate={handleUpdate}
+                  />
+                );
+              })
+            ) : (
+              <Spinner />
+            )}
           </Stack>
         </Flex>
       </Wrapper>
