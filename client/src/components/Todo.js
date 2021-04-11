@@ -14,6 +14,7 @@ const Todo = ({ desc, tid, isC, handleUpdate, handleDelete, ...rest }) => {
         <Checkbox
           color="gray"
           defaultIsChecked={isC}
+          isChecked={isC}
           mr={1}
           onChange={(e) => handleUpdate(e, tid)}
         ></Checkbox>

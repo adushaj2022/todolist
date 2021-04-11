@@ -9,6 +9,7 @@ import { getTodos } from "./api/todos";
 import Todo from "./components/Todo";
 import { create } from "./api/create";
 import { remove } from "./api/remove";
+import { update } from "./api/update";
 import { useToast } from "@chakra-ui/toast";
 import { Spinner } from "@chakra-ui/spinner";
 
@@ -35,6 +36,16 @@ function App() {
         }
       })
     );
+    const res = await update(id);
+    if (res) {
+      toast({
+        title: "To do changed",
+        description: "Successfully changed status",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleDelete = async (id) => {
