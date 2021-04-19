@@ -27,6 +27,8 @@ cd client && npm start
   <li>CRUD Functionality</li>
 </ul>
 
+![image](https://user-images.githubusercontent.com/47046091/115167044-ecdd0600-a083-11eb-9c54-6569254f108f.png)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
