@@ -16,8 +16,9 @@ Only requires node & npm installed as well as a database (mysql or psql)
 
 ```bash
 git clone https://github.com/adushaj2022/todolist.git
-tsc && npm start
-cd client && yarn start
+npm install
+tsc && npm install && npm start
+cd client && npm start
 ```
 
 ## Features
