@@ -5,6 +5,7 @@ Main purpose of this project was to practice with typescript and type orm on the
 # Tech Stack
 
 TypeScript <br>
+Postgres <br>
 Node & Express <br>
 Type Orm <br>
 React <br>
